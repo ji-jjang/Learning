@@ -21,6 +21,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableAsync
 public class ProjectConfig {
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    @Autowired
+    private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+
     @Bean
     public InitializingBean initializingBean() {
         return () -> SecurityContextHolder.setStrategyName(
@@ -47,15 +53,23 @@ public class ProjectConfig {
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .httpBasic(
-                        c -> {
-                            c.realmName("OTHER");
-                            c.authenticationEntryPoint(new CustomEntryPoint());
-                        })
+        http.formLogin(a -> {
+                    a.defaultSuccessUrl("/home", true);
+                    a.successHandler(customAuthenticationSuccessHandler);
+                    a.failureHandler(customAuthenticationFailureHandler);
+                })
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated();
+//        http
+//                .httpBasic(
+//                        c -> {
+//                            c.realmName("OTHER");
+//                            c.authenticationEntryPoint(new CustomEntryPoint());
+//                        })
+//                .authorizeRequests()
+//                .anyRequest()
+//                .authenticated();
 //                .authorizeRequests()
 //                .anyRequest().authenticated();
 ////                .anyRequest().permitAll();
