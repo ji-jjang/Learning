@@ -1,4 +1,4 @@
-//package core.security.chapter03;
+package core.security.chapter03;
 //
 //import lombok.extern.slf4j.Slf4j;
 //import org.springframework.security.core.userdetails.UserDetails;
