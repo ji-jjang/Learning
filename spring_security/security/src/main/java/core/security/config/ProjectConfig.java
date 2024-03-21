@@ -18,23 +18,23 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-public class ProjectConfig {
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-
-        encoders.put("noop", NoOpPasswordEncoder.getInstance());
-        encoders.put("bcrypt", new BCryptPasswordEncoder());
-//        encoders.put("scrypt", new SCryptPasswordEncoder());
-
-        return new DelegatingPasswordEncoder("bcrypt", encoders);
-    }
-//    @Autowired
-//    CustomAuthenticationProvider customAuthenticationProvider;
+//@Configuration
+//public class ProjectConfig {
 //
-//    public void configure(AuthenticationManagerBuilder auth) {
-//        auth.authenticationProvider(customAuthenticationProvider);
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        Map<String, PasswordEncoder> encoders = new HashMap<>();
+//
+//        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+//        encoders.put("bcrypt", new BCryptPasswordEncoder());
+////        encoders.put("scrypt", new SCryptPasswordEncoder());
+//
+//        return new DelegatingPasswordEncoder("bcrypt", encoders);
 //    }
-}
+////    @Autowired
+////    CustomAuthenticationProvider customAuthenticationProvider;
+////
+////    public void configure(AuthenticationManagerBuilder auth) {
+////        auth.authenticationProvider(customAuthenticationProvider);
+////    }
+//}

@@ -1,4 +1,4 @@
-//package core.security.chapter03;
+package core.security.chapter03;
 //
 //
 //import org.springframework.security.core.userdetails.User;
