@@ -1,4 +1,4 @@
-package core.security.config;
+package core.security.chapter03.config;
 
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
