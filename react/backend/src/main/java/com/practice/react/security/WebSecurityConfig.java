@@ -23,15 +23,18 @@ public class WebSecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    System.out.println("WebSecurityConfig.securityFilterChain");
     http.cors(Customizer.withDefaults()) // webMvcConfig에서 설정했으므로 기본 cors 설정한다.
         .csrf((csrf) -> csrf.disable())
 //        .csrf(AbstractHttpConfigurer::disable)
         .httpBasic((httpBasic) -> httpBasic.disable())
         .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeRequests((auth) -> auth.requestMatchers("/", "/auth/**").permitAll()
-            .anyRequest().authenticated());
+        .authorizeRequests()
+        .requestMatchers("/", "/auth/**").permitAll()
+        .requestMatchers("/auth/signup").permitAll()
+        .anyRequest().authenticated();
 
-    http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//    http.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 //    http.addFilterAfter(
 //        jwtAuthenticationFilter, CorsFilter.class
 //    );

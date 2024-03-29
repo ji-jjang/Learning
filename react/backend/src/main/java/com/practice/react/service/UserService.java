@@ -27,10 +27,13 @@ public class UserService {
   }
 
   public UserEntity getByCredentials(final String email, final String password, final PasswordEncoder encoder) {
+    System.out.println("UserService.getByCredentials");
     UserEntity originalUser = userRepository.findByEmail(email);
     if (originalUser != null && encoder.matches(password, originalUser.getPassword())) {
+      System.out.println("not null, matches");
       return originalUser;
     }
+    System.out.println("return null");
     return null;
   }
 }
