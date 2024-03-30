@@ -1,6 +1,8 @@
 package core.security.chapter10;
 
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,88 +23,49 @@ import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
+@Slf4j
 public class ProjectConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-      http.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class)
-          .authorizeRequests()
-          .anyRequest().permitAll();
+  @Bean
+  public CsrfTokenRepository cusmtomeTokenRepository() {
+    return new CustomCsrfTokenRepository();
+  }
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-      return http.build();
-    }
-//        http.csrf(c -> {
-//                    c.csrfTokenRepository(customTokenRepository());
-//                    c.ignoringRequestMatchers("/ciao");
-//                }).authorizeRequests()
-//                .anyRequest().permitAll();
+
+    http.csrf(c -> {
+      c.csrfTokenRepository(cusmtomeTokenRepository());
+//      c.ignoringRequestMatchers("/ciao");
+    });
+
+    http.authorizeRequests()
+        .anyRequest().permitAll();
+
+//    http.authorizeRequests()
+//        .anyRequest().authenticated();
 //
-//        return http.build();
+//    http.formLogin((formLogin) -> formLogin
+//        .defaultSuccessUrl("/main", true));
 
-//    @Bean
-//    public CsrfTokenRepository customTokenRepository() {
-//        return new CustomCsrfTokenRepository();
-//    }
+    return http.build();
+  }
+
+  @Bean
+  public UserDetailsService uds() {
+    InMemoryUserDetailsManager uds = new InMemoryUserDetailsManager();
+
+    UserDetails u1 = User.withUsername("mary")
+        .password("1234")
+        .authorities("READ")
+        .build();
+
+    uds.createUser(u1);
+
+    return uds;
+  }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+      return NoOpPasswordEncoder.getInstance();
+  }
 }
-        /*
-        방법1 ignoringRequestMatchers
-         */
-//        http.csrf(c -> {
-//                    c.ignoringRequestMatchers("/ciao");
-//                }).authorizeRequests()
-//                .anyRequest()
-//                .permitAll();
-        /*
-        방법2 MvcReuqestMather 함께 사용
-         */
-//        HandlerMappingIntrospector i = new HandlerMappingIntrospector();
-//        MvcRequestMatcher r = new MvcRequestMatcher(i, "/ciao");
-//        http.csrf(c -> {
-//                    c.ignoringRequestMatchers(r);
-//                }).authorizeRequests()
-//                .anyRequest()
-//                .permitAll();
-
-        /*
-        방법3 정규식
-         */
-//        String pattern = ".*(ciao).*";
-//        String httpMethod = HttpMethod.POST.name();
-//        RegexRequestMatcher r = new RegexRequestMatcher(pattern, httpMethod);
-//        http.csrf(c -> {
-//                    c.ignoringRequestMatchers(r);
-//                }).authorizeRequests()
-//                .anyRequest()
-//                .permitAll();
-//        return http.build();
-//    }
-
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.authorizeRequests()
-//                .anyRequest()
-//                .authenticated();
-//
-//        http.formLogin(a -> a.defaultSuccessUrl("/main", true));
-//
-//        return http.build();
-//    }
-//
-//    @Bean
-//    public UserDetailsService uds() {
-//        InMemoryUserDetailsManager uds = new InMemoryUserDetailsManager();
-//
-//        UserDetails u1 = User.withUsername("mary")
-//                .password("1234")
-//                .authorities("READ")
-//                .build();
-//
-//        uds.createUser(u1);
-//
-//        return uds;
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return NoOpPasswordEncoder.getInstance();
-//    }
