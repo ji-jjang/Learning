@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 
 @SpringBootApplication
-//(exclude = {UserDetailsServiceAutoConfiguration.class})
+(exclude = {UserDetailsServiceAutoConfiguration.class})
 public class SecurityApplication {
 
     public static void main(String[] args) {
