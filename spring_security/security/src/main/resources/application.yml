@@ -31,3 +31,13 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+server:
+  port: 9090
+
+auth:
+  server:
+    base:
+      url: http://localhost:8080
+jwt:
+  signing:
+    key: ymLTU8rq83j4fmJZj60wh4OrMNuntIj4fmJ
