@@ -1,1 +1,0 @@
-#org.springframework.context.ApplicationListener=com.juny.core.ch01.ApplicationStartingEventListener
