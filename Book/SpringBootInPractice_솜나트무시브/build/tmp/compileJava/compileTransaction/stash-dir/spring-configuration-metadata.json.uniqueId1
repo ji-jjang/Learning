@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "db",
+      "type": "com.juny.core.ch02.DbConfigurationYaml",
+      "sourceType": "com.juny.core.ch02.DbConfigurationYaml"
+    }
+  ],
+  "properties": [
+    {
+      "name": "db.password",
+      "type": "java.lang.String",
+      "sourceType": "com.juny.core.ch02.DbConfigurationYaml"
+    },
+    {
+      "name": "db.user",
+      "type": "java.lang.String",
+      "sourceType": "com.juny.core.ch02.DbConfigurationYaml"
+    }
+  ],
+  "hints": []
+}

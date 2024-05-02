@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.juny.core.CoreApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-02T03:50:41" hostname="jiui-MacBookPro.local" time="0.411">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.juny.core.CoreApplicationTests" time="0.411"/>
+  <system-out><![CDATA[12:50:40.960 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.juny.core.CoreApplicationTests]: CoreApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:50:41.000 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.juny.core.CoreApplication for test class com.juny.core.CoreApplicationTests
+Application Starting Event logged at Thu May 02 12:50:41 KST 2024
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2024-05-02T12:50:41.173+09:00  INFO 5170 --- [    Test worker] com.juny.core.CoreApplicationTests       : Starting CoreApplicationTests using Java 21.0.1 with PID 5170 (started by jijunhyuk in /Users/jijunhyuk/JunyProjects/pj/Book/SpringBootInPractice_솜나트무시브)
+2024-05-02T12:50:41.173+09:00  INFO 5170 --- [    Test worker] com.juny.core.CoreApplicationTests       : No active profile set, falling back to 1 default profile: "default"
+2024-05-02T12:50:41.820+09:00  INFO 5170 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-02T12:50:41.851+09:00  INFO 5170 --- [    Test worker] com.juny.core.CoreApplicationTests       : Started CoreApplicationTests in 0.799 seconds (process running for 1.259)
+2024-05-02T12:50:41.889+09:00  INFO 5170 --- [    Test worker] com.juny.core.ch02.MyCommandLineRunner   : MyCommandLineRunner executed as a Spring Compoent
+2024-05-02T12:50:41.890+09:00  INFO 5170 --- [    Test worker] com.juny.core.CoreApplication            : CommandLineRunner executed as a bean definition with 0 arguments
+]]></system-out>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/jijunhyuk/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.13/979ce25f7d3096a2e82214ba7dc972a05ce7a171/byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>
