@@ -1,6 +1,16 @@
 spring:
-  config:
-    import: file:src/main/resources/custom-config.yml
+  datasource:
+    url: jdbc:h2:mem:sbipdb
+    username: sa
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
 
 app:
   sbip:
@@ -14,6 +24,15 @@ app:
         roles:
           - USER
           - ADMI
+#spring:
+#  data:
+#    mongodb:
+#      url: mongodb://localhost:27017/testdb
+
+# spring
+#  datasource:
+#    type: org.apache.tomcat.jdbc.pool.DataSource
+
 #logging:
 #  pattern:
 #    console:%clr(%d{dd-MM-yyyy HH:mm:ss.SSS}){red} %clr(${PID:- }){red}%magenta([%thread]) %highlight([%-5level]) %clr(%-40.40logger{39}){cyan} %msg%n
