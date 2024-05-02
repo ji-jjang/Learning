@@ -1,1 +1,2 @@
 #org.springframework.context.ApplicationListener=com.juny.core.ch01.ApplicationStartingEventListener
+org.springframework.boot.diagnostics.FailureAnalyzer=com.juny.core.ch04.UrlNotAccessibleFailureAnalyzer

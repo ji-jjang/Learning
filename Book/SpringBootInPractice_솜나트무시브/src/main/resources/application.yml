@@ -1,3 +1,20 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["*", "prometheus"]
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true
+
+server:
+  tomcat:
+    mbeanregistry:
+      enabled: true
+
 spring:
   datasource:
     url: jdbc:h2:mem:sbipdb
@@ -39,4 +56,17 @@ app:
 #loggging:
 #  file:
 #    path: ./logger/logs
-# FAIL? ?? PATH? ????(?? ?? ???) ??, IGNORE? ?? PATH ????(?? ?? ???) ?? ???? ??
+info:
+  app:
+    name: Spring Boot Actuator Info Application
+    description: Spring Boot Application that explores the /info endpoint
+    version: 1.0.0
+  build:
+    artifact: ${project.artifactId}
+    name: ${project.name:default}
+    description: ${project.description:default}
+    version: ${project.version:default}
+    properties:
+      java:
+        version: ${java.version}
+
