@@ -26,22 +26,20 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
+  ldap:
+    embedded:
+      port: 8389
+      ldif: classpath:users.ldif
+      base-dn: "dc=manning,dc=com"
 
 
-app:
-  sbip:
-    ct:
-      name: CourseTracker
-      ip: 127.0.0.1
-      port: 9090
-      security:
-        enabled: true
-        token: aaskdksjdfk23942
-        roles:
-          - USER
-          - ADMI
-#spring:
+
+
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
 #  data:
 #    mongodb:
 #      url: mongodb://localhost:27017/testdb
@@ -56,6 +54,7 @@ app:
 #loggging:
 #  file:
 #    path: ./logger/logs
+
 info:
   app:
     name: Spring Boot Actuator Info Application
@@ -70,3 +69,11 @@ info:
       java:
         version: ${java.version}
 
+
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+      webjars: debug
