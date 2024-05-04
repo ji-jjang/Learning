@@ -34,3 +34,16 @@ create table ct_users(
      ACC_CRED_EXPIRED BOOLEAN NOT NULL,
      PRIMARY KEY (ID)
 );
+
+create table CT_EMAIL_VERIFICATIONS (
+    verification_id varchar(50),
+    username varchar(50),
+    PRIMARY KEY (verification_id)
+);
+
+
+
+
+
+
+

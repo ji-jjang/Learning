@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.google.guava:guava'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.unboundid:unboundid-ldapsdk'
 	implementation 'org.springframework.security:spring-security-ldap'
 	implementation 'org.springframework.ldap:spring-ldap-core'

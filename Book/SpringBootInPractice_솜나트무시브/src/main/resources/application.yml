@@ -32,6 +32,18 @@ spring:
       port: 8389
       ldif: classpath:users.ldif
       base-dn: "dc=manning,dc=com"
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jinyhehe
+    password: qzihesihqnfmhhkm
+    protocol: smtp
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
 
 
 
