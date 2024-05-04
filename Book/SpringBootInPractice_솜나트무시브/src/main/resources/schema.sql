@@ -23,7 +23,7 @@ CREATE TABLE AUTHORITIES(
 create unique index ix_auth_username on AUTHORITIES (username, authority);
 
 create table ct_users(
-     ID	BIGINT	NOT NULL,
+     ID	BIGINT AUTO_INCREMENT	NOT NULL,
      EMAIL	VARCHAR(255)	NOT NULL,
      FIRST_NAME	VARCHAR(255) NOT NULL,
      LAST_NAME	VARCHAR(255) NOT NULL,

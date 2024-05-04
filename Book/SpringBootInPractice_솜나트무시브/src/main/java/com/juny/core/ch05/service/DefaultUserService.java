@@ -3,21 +3,18 @@ package com.juny.core.ch05.service;
 import com.juny.core.ch05.dto.UserDto;
 import com.juny.core.ch05.model.ApplicationUser;
 import com.juny.core.ch05.repository.ApplicationUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DefaultUserService implements UserService {
 
+  @Autowired
+  private ApplicationUserRepository userRepository;
 
-  private final ApplicationUserRepository userRepository;
-
-  private final PasswordEncoder passwordEncoder;
-
-  public DefaultUserService(ApplicationUserRepository userRepository, PasswordEncoder passwordEncoder) {
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
-  }
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Override
   public ApplicationUser createUser(UserDto userDto) {
@@ -27,7 +24,6 @@ public class DefaultUserService implements UserService {
     applicationUser.setEmail(userDto.getEmail());
     applicationUser.setUsername(userDto.getUsername());
     applicationUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
-    applicationUser.setVerified(true);
 
     return userRepository.save(applicationUser);
   }

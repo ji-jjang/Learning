@@ -11,5 +11,5 @@ values ('admin', 'admin', true);
 INSERT INTO AUTHORITIES(username, authority) values ('user', 'USER');
 INSERT INTO AUTHORITIES(username, authority) values ('admin', 'ADMIN');
 
-INSERT INTO CT_USERS(ID, FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, EMAIL, VERIFIED, LOCKED, ACC_CRED_EXPIRED) VALUES(1, 'John', 'Socket', 'jsocket', 'password', 'jsocket@example.com', TRUE, FALSE, FALSE);
-INSERT INTO CT_USERS(ID, FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, EMAIL, VERIFIED, LOCKED, ACC_CRED_EXPIRED) VALUES(2, 'Steve', 'Smith', 'smith', 'password', 'smith@example.com', FALSE, FALSE, FALSE);
+INSERT INTO CT_USERS(FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, EMAIL, VERIFIED, LOCKED, ACC_CRED_EXPIRED) VALUES('John', 'Socket', 'jsocket', 'password', 'jsocket@example.com', TRUE, FALSE, FALSE);
+INSERT INTO CT_USERS(FIRST_NAME, LAST_NAME, USERNAME, PASSWORD, EMAIL, VERIFIED, LOCKED, ACC_CRED_EXPIRED) VALUES('Steve', 'Smith', 'smith', 'password', 'smith@example.com', FALSE, FALSE, FALSE);

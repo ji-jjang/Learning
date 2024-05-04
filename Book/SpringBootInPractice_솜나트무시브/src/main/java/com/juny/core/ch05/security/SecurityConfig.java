@@ -2,6 +2,7 @@ package com.juny.core.ch05.security;
 
 import com.juny.core.ch05.repository.ApplicationUserRepository;
 import com.juny.core.ch05.service.CustomUserDetailsService;
+import com.juny.core.ch05.service.UserService;
 import javax.sql.DataSource; import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.config.ldap.EmbeddedLdapServerContextSourceFactoryBean;
 import org.springframework.security.config.ldap.LdapBindAuthenticationManagerFactory;
@@ -34,24 +36,19 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class SecurityConfig {
 
   private final AccessDeniedHandler customAccessDeniedHandler;
-  private final ApplicationUserRepository applicationUserRepository;
+  private final UserService userService;
+  private final PasswordEncoder passwordEncoder;
 
   public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler, DataSource dataSource,
-      ApplicationUserRepository applicationUserRepository) {
+      UserService userService, PasswordEncoder passwordEncoder) {
     this.customAccessDeniedHandler = customAccessDeniedHandler;
-    this.applicationUserRepository = applicationUserRepository;
-  }
-
-
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return NoOpPasswordEncoder.getInstance();
-//    return new BCryptPasswordEncoder();
+    this.userService = userService;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return new CustomUserDetailsService(applicationUserRepository);
+    return new CustomUserDetailsService(userService);
   }
 //  @Bean
 //  public DefaultSpringSecurityContextSource contextSource() {
@@ -75,6 +72,11 @@ public class SecurityConfig {
 //  }
 
   @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) ->
+        web.ignoring().requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
+  }
+  @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
     http
@@ -85,8 +87,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((auth) -> {
             auth
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
-                .requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**").permitAll()
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("adduser", "/login", "/login-error").permitAll()
                 .requestMatchers("/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
         }
@@ -96,7 +97,7 @@ public class SecurityConfig {
         .exceptionHandling(e -> e.accessDeniedHandler(customAccessDeniedHandler));
 
     http
-        .formLogin(f -> f.loginPage("/login"));
+        .formLogin(f -> f.loginPage("/login").failureUrl("/login-error"));
 
     return http.build();
   }
