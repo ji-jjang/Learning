@@ -2,8 +2,7 @@ package com.juny.core.ch05.security;
 
 import com.juny.core.ch05.repository.ApplicationUserRepository;
 import com.juny.core.ch05.service.CustomUserDetailsService;
-import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.sql.DataSource; import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -54,26 +53,26 @@ public class SecurityConfig {
   public UserDetailsService userDetailsService() {
     return new CustomUserDetailsService(applicationUserRepository);
   }
-  @Bean
-  public DefaultSpringSecurityContextSource contextSource() {
-    DefaultSpringSecurityContextSource contextSource =
-        new DefaultSpringSecurityContextSource("ldap://localhost:8389/dc=manning,dc=com");
-    return contextSource;
-  }
-
-  @Bean
-  public LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationConfigurer(
-      DefaultSpringSecurityContextSource contextSource) {
-    LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> configurer =
-        new LdapAuthenticationProviderConfigurer<>();
-    configurer
-        .userDnPatterns("uid={0},ou=people")
-        .contextSource(contextSource)
-        .passwordCompare()
-        .passwordEncoder(NoOpPasswordEncoder.getInstance())
-        .passwordAttribute("userPassword");
-    return configurer;
-  }
+//  @Bean
+//  public DefaultSpringSecurityContextSource contextSource() {
+//    DefaultSpringSecurityContextSource contextSource =
+//        new DefaultSpringSecurityContextSource("ldap://localhost:8389/dc=manning,dc=com");
+//    return contextSource;
+//  }
+//
+//  @Bean
+//  public LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> ldapAuthenticationConfigurer(
+//      DefaultSpringSecurityContextSource contextSource) {
+//    LdapAuthenticationProviderConfigurer<AuthenticationManagerBuilder> configurer =
+//        new LdapAuthenticationProviderConfigurer<>();
+//    configurer
+//        .userDnPatterns("uid={0},ou=people")
+//        .contextSource(contextSource)
+//        .passwordCompare()
+//        .passwordEncoder(NoOpPasswordEncoder.getInstance())
+//        .passwordAttribute("userPassword");
+//    return configurer;
+//  }
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -93,14 +92,11 @@ public class SecurityConfig {
         }
     );
 
-
     http
         .exceptionHandling(e -> e.accessDeniedHandler(customAccessDeniedHandler));
 
     http
         .formLogin(f -> f.loginPage("/login"));
-
-
 
     return http.build();
   }
