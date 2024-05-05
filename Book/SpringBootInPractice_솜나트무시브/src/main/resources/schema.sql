@@ -41,7 +41,12 @@ create table CT_EMAIL_VERIFICATIONS (
     PRIMARY KEY (verification_id)
 );
 
-
+create table CT_TOTP_DETAILS (
+    id BIGINT NOT NULL auto_increment,
+    secret varchar(255),
+    username varchar(255),
+    PRIMARY KEY (id)
+)
 
 
 

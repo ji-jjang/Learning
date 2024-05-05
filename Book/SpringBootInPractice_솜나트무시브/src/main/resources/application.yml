@@ -1,3 +1,7 @@
+captcha:
+  secret:
+    key: 6Ld9-9ApAAAAAD20ctZPFPAY0om6wHXUSyB4IJsl
+
 management:
   endpoints:
     web:
@@ -47,7 +51,6 @@ spring:
 
 
 
-
 #  mvc:
 #    hiddenmethod:
 #      filter:
@@ -89,3 +92,4 @@ logging:
       springframework:
         web: debug
       webjars: debug
+

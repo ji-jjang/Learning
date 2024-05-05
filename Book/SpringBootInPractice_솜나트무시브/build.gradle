@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'com.warrenstrange:googleauth:1.5.0'
 	implementation 'com.google.guava:guava'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.unboundid:unboundid-ldapsdk'
