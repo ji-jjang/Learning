@@ -15,8 +15,8 @@
     <img src="/images/logo.png" width="30" height="30" alt="logo">
     Course Tracker
   </a>
-  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-list" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggle-icon"></span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="navbar-list">
     <ul class="navbar-nav">
@@ -27,11 +27,11 @@
         <a class="nav-link" href="#" th:href="@{/addcourse}">Add Course</a>
       </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
+    <!--ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link" href="#" th:href="@{/adduser}">Register</a>
       </li>
-    </ul>
+    </ul-->
   </div>
 </nav>
 <div class="container my-5">
@@ -46,14 +46,17 @@
     <div class="col-md-3"></div>
     <div class="col-md-6 border rounded-bottom border-dark p-3">
       <div th:if="${loginError}" class="alert alert-danger">Wrong Username or Password</div>
-      <div th:if="${verified}" class="alert alert-success">Account has been verified. Please sign-in</div>
+      <div th:if="${loginVerified}" class="alert alert-success">Account has been verified. Please sign-in</div>
+      <div th:if="${loginDisabled}" class="alert alert-danger">Account is not yet active. Please check your email</div>
+      <div th:if="${loginLocked}" class="alert alert-danger">Account locked due to multiple incorrect login attempts.</div>
+
       <form th:action="@{/login}" method="post">
         <div class="form-group">
-          <html for="username">Username</html>
+          <label for="username">Username</label>
           <input type="text" class="form-control" name="username" placeholder="Enter Username" required autofocus>
         </div>
         <div class="form-group">
-          <html for="password">Password</html>
+          <label for="password">Password</label>
           <input type="password" class="form-control" name="password" placeholder="Enter Password" required autofocus>
         </div>
         <div class="text-center">

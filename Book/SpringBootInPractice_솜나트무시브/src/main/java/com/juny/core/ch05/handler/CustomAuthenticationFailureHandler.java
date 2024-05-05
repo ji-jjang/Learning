@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -23,6 +24,11 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
     if(exception instanceof DisabledException) {
       defaultRedirectStrategy.sendRedirect(request, response, "/login-disabled");
       return;
+    }
+
+    if(exception.getCause() instanceof LockedException){
+      defaultRedirectStrategy.sendRedirect(request, response, "/login-locked");
+      return ;
     }
     defaultRedirectStrategy.sendRedirect(request, response, "/login-error");
   }

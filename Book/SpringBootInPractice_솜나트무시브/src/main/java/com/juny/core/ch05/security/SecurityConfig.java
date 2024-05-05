@@ -3,6 +3,7 @@ package com.juny.core.ch05.security;
 import com.juny.core.ch05.handler.CustomAuthenticationFailureHandler;
 import com.juny.core.ch05.repository.ApplicationUserRepository;
 import com.juny.core.ch05.service.CustomUserDetailsService;
+import com.juny.core.ch05.service.LoginAttemptService;
 import com.juny.core.ch05.service.UserService;
 import javax.sql.DataSource; import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -40,19 +41,22 @@ public class SecurityConfig {
   private final UserService userService;
   private final PasswordEncoder passwordEncoder;
   private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+  private final LoginAttemptService loginAttemptService;
 
   public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler, DataSource dataSource,
       UserService userService, PasswordEncoder passwordEncoder,
-      CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+      CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
+      LoginAttemptService loginAttemptService) {
     this.customAccessDeniedHandler = customAccessDeniedHandler;
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
+    this.loginAttemptService = loginAttemptService;
   }
 
   @Bean
   public UserDetailsService userDetailsService() {
-    return new CustomUserDetailsService(userService);
+    return new CustomUserDetailsService(userService, loginAttemptService);
   }
 //  @Bean
 //  public DefaultSpringSecurityContextSource contextSource() {
@@ -91,7 +95,7 @@ public class SecurityConfig {
         .authorizeHttpRequests((auth) -> {
             auth
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
-                .requestMatchers("adduser", "/login", "/login-error", "/login-verified", "/login-disabled", "/verify/email").permitAll()
+                .requestMatchers("adduser", "/login", "/login-error", "/login-verified", "/login-disabled", "/verify/email", "login-locked").permitAll()
                 .requestMatchers("/delete/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
         }
