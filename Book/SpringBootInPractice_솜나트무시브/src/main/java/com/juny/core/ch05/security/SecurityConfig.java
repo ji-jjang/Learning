@@ -1,6 +1,8 @@
 package com.juny.core.ch05.security;
 
+import com.juny.core.ch05.filter.TotpAuthFilter;
 import com.juny.core.ch05.handler.CustomAuthenticationFailureHandler;
+import com.juny.core.ch05.handler.DefaultAuthenticationSuccessHandler;
 import com.juny.core.ch05.repository.ApplicationUserRepository;
 import com.juny.core.ch05.service.CustomUserDetailsService;
 import com.juny.core.ch05.service.LoginAttemptService;
@@ -32,6 +34,7 @@ import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -85,7 +88,9 @@ public class SecurityConfig {
         web.ignoring().requestMatchers("/webjars/**", "/images/**", "/css/**", "/h2-console/**");
   }
   @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+  public SecurityFilterChain filterChain(HttpSecurity http, TotpAuthFilter totpAuthFilter) throws Exception {
+
+    http.addFilterBefore(totpAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     http
         .csrf(c -> c.ignoringRequestMatchers(PathRequest.toH2Console()))
@@ -96,16 +101,19 @@ public class SecurityConfig {
             auth
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .requestMatchers("adduser", "/login", "/login-error", "/login-verified", "/login-disabled", "/verify/email", "login-locked").permitAll()
+                .requestMatchers("/totp-login", "/totp-login-error").hasAuthority("TOTP_AUTH_AUTHORITY")
                 .requestMatchers("/delete/**").hasRole("ADMIN")
-                .anyRequest().authenticated();
+                .anyRequest().hasRole("USER");
         }
     );
 
-    http
-        .rememberMe(
+    http.rememberMe(
             rm -> rm.key("remember-me-key").rememberMeCookieName("course-tracker-remember-me"))
         .formLogin(
-            f -> f.loginPage("/login").failureHandler(customAuthenticationFailureHandler));
+            f ->
+                f.loginPage("/login")
+                    .failureHandler(customAuthenticationFailureHandler)
+                    .successHandler(new DefaultAuthenticationSuccessHandler()));
 
     return http.build();
   }

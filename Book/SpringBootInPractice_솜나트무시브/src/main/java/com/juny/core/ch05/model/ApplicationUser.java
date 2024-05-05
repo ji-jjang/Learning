@@ -6,8 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Collection;
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "CT_USERS")
@@ -26,4 +28,7 @@ public class ApplicationUser {
   private boolean locked;
   @Column(name = "ACC_CRED_EXPIRED")
   private boolean accountCredentialsExpired;
+
+  private boolean totpEnabled;
+
 }

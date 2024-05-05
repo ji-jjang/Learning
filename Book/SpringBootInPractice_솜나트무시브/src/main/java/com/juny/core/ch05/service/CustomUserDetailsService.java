@@ -1,9 +1,12 @@
 package com.juny.core.ch05.service;
 
 import com.juny.core.ch05.model.ApplicationUser;
+import com.juny.core.ch05.model.CustomUser;
 import com.juny.core.ch05.repository.ApplicationUserRepository;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,20 +29,29 @@ public class CustomUserDetailsService implements UserDetailsService {
     if (loginAttemptService.isBlocked(username)){
       throw new LockedException("user account is locked.");
     }
-    ApplicationUser applicationUser = userService.findByUsername(username);
-    if (applicationUser == null) {
+    ApplicationUser user = userService.findByUsername(username);
+    if (user == null) {
       throw new UsernameNotFoundException("No user with " + username + " exists in the system");
     }
-    System.out.println("applicationUser.toString() = " + applicationUser.toString());
-    return User.withUsername(username).password(applicationUser.getPassword()).roles("USER").disabled(!applicationUser.isVerified()).build();
-//    return User.builder()
-//        .username(applicationUser.getUsername())
-//        .password(applicationUser.getPassword())
-//        .disabled(!applicationUser.isVerified())
-//        .accountExpired(applicationUser.isAccountCredentialsExpired())
-//        .accountLocked(applicationUser.isLocked())
-//        //.roles("USER")
-//        .authorities("ROLE_USER")
-//        .build();
+
+    SimpleGrantedAuthority simpleGrantedAuthority = null;
+    if (user.isTotpEnabled()){
+      simpleGrantedAuthority = new SimpleGrantedAuthority(
+          "TOTP_AUTH_AUTHORITY");
+    } else {
+      simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+    }
+    System.out.println("applicationUser.toString() = " + user.toString());
+    CustomUser customUser = new CustomUser(
+        user.getUsername(),
+        user.getPassword(),
+        user.isVerified(),
+        true,
+        true,
+        true,
+        Arrays.asList(simpleGrantedAuthority));
+    customUser.setTotpEnabled(user.isTotpEnabled());
+    return customUser;
+//    return User.withUsername(username).password(user.getPassword()).roles("USER").disabled(!user.isVerified()).build();
   }
 }
