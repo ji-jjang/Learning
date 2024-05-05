@@ -101,9 +101,11 @@ public class SecurityConfig {
         }
     );
 
-
     http
-        .formLogin(f -> f.loginPage("/login").failureHandler(customAuthenticationFailureHandler));
+        .rememberMe(
+            rm -> rm.key("remember-me-key").rememberMeCookieName("course-tracker-remember-me"))
+        .formLogin(
+            f -> f.loginPage("/login").failureHandler(customAuthenticationFailureHandler));
 
     return http.build();
   }
