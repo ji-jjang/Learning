@@ -7,4 +7,6 @@ public interface UserService {
   ApplicationUser createUser(UserDto userDto);
   ApplicationUser save(ApplicationUser applicationUser);
   ApplicationUser findByUsername(String username);
+
+  ApplicationUser findOrCreateUser(String email, String name);
 }

@@ -48,8 +48,16 @@ spring:
         smtp:
           auth: true
           starttls.enable: true
-
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 699514762309-aet1t9shcnuordrums3a70se1733vtit.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
 
 #  mvc:
 #    hiddenmethod:

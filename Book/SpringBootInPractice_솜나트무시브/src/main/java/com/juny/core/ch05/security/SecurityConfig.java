@@ -3,7 +3,9 @@ package com.juny.core.ch05.security;
 import com.juny.core.ch05.filter.TotpAuthFilter;
 import com.juny.core.ch05.handler.CustomAuthenticationFailureHandler;
 import com.juny.core.ch05.handler.DefaultAuthenticationSuccessHandler;
+import com.juny.core.ch05.handler.Oauth2AuthenticationSuccessHandler;
 import com.juny.core.ch05.repository.ApplicationUserRepository;
+import com.juny.core.ch05.service.CustomOAuth2UserService;
 import com.juny.core.ch05.service.CustomUserDetailsService;
 import com.juny.core.ch05.service.LoginAttemptService;
 import com.juny.core.ch05.service.UserService;
@@ -45,16 +47,18 @@ public class SecurityConfig {
   private final PasswordEncoder passwordEncoder;
   private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
   private final LoginAttemptService loginAttemptService;
+  private final CustomOAuth2UserService customOauth2UserService;
 
   public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler, DataSource dataSource,
       UserService userService, PasswordEncoder passwordEncoder,
       CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
-      LoginAttemptService loginAttemptService) {
+      LoginAttemptService loginAttemptService, CustomOAuth2UserService customOauth2UserService) {
     this.customAccessDeniedHandler = customAccessDeniedHandler;
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     this.loginAttemptService = loginAttemptService;
+    this.customOauth2UserService = customOauth2UserService;
   }
 
   @Bean
@@ -115,6 +119,14 @@ public class SecurityConfig {
                     .failureHandler(customAuthenticationFailureHandler)
                     .successHandler(new DefaultAuthenticationSuccessHandler()));
 
+    http.oauth2Login(
+        (oauth2) ->
+            oauth2
+                .loginPage("/login")
+                .userInfoEndpoint(
+                    (userInfoEndpointConfig) ->
+                        userInfoEndpointConfig.userService(customOauth2UserService))
+                .successHandler(new Oauth2AuthenticationSuccessHandler()));
     return http.build();
   }
 }

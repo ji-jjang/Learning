@@ -37,4 +37,16 @@ public class DefaultUserService implements UserService {
   public ApplicationUser findByUsername(String username) {
     return userRepository.findByUsername(username);
   }
+
+  @Override
+  public ApplicationUser findOrCreateUser(String email, String name) {
+    ApplicationUser user = userRepository.findByUsername(name);
+    if (user == null) {
+      user = new ApplicationUser();
+      user.setEmail(email);
+      user.setUsername(name);
+      userRepository.save(user);
+    }
+    return user;
+  }
 }
