@@ -16,7 +16,7 @@ public class MessageController {
   @MessageMapping("/chat")
   @SendTo("/topic/messages")
   public OutputMessage message(InputMessage message) {
-    log.info("Input Message "+message);
+    log.info("Input Message {} ", message);
     return OutputMessage.builder().time(Instant.now(Clock.systemDefaultZone())).content(message.getContent()).build();
   }
 }
