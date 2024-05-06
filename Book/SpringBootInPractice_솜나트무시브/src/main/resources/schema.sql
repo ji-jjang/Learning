@@ -47,9 +47,14 @@ create table CT_TOTP_DETAILS (
     secret varchar(255),
     username varchar(255),
     PRIMARY KEY (id)
-)
+);
 
-
+CREATE TABLE Juny (
+    id BIGINT AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
 
 
 

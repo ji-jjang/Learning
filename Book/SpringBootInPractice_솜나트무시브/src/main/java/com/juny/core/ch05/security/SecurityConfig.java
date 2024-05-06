@@ -9,6 +9,7 @@ import com.juny.core.ch05.service.CustomOAuth2UserService;
 import com.juny.core.ch05.service.CustomUserDetailsService;
 import com.juny.core.ch05.service.LoginAttemptService;
 import com.juny.core.ch05.service.UserService;
+import com.juny.core.ch07.JwtConverter;
 import javax.sql.DataSource; import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -48,17 +49,21 @@ public class SecurityConfig {
   private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
   private final LoginAttemptService loginAttemptService;
   private final CustomOAuth2UserService customOauth2UserService;
+  private final JwtConverter jwtConverter;
+
 
   public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler, DataSource dataSource,
       UserService userService, PasswordEncoder passwordEncoder,
       CustomAuthenticationFailureHandler customAuthenticationFailureHandler,
-      LoginAttemptService loginAttemptService, CustomOAuth2UserService customOauth2UserService) {
+      LoginAttemptService loginAttemptService, CustomOAuth2UserService customOauth2UserService,
+      JwtConverter jwtConverter) {
     this.customAccessDeniedHandler = customAccessDeniedHandler;
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     this.loginAttemptService = loginAttemptService;
     this.customOauth2UserService = customOauth2UserService;
+    this.jwtConverter = jwtConverter;
   }
 
   @Bean
@@ -104,10 +109,12 @@ public class SecurityConfig {
         .authorizeHttpRequests((auth) -> {
             auth
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
+                .requestMatchers("/courses/**").hasAuthority("SCOPE_course:read")
                 .requestMatchers("adduser", "/login", "/login-error", "/login-verified", "/login-disabled", "/verify/email", "login-locked").permitAll()
                 .requestMatchers("/totp-login", "/totp-login-error").hasAuthority("TOTP_AUTH_AUTHORITY")
                 .requestMatchers("/delete/**").hasRole("ADMIN")
                 .anyRequest().hasRole("USER");
+
         }
     );
 
@@ -127,6 +134,9 @@ public class SecurityConfig {
                     (userInfoEndpointConfig) ->
                         userInfoEndpointConfig.userService(customOauth2UserService))
                 .successHandler(new Oauth2AuthenticationSuccessHandler()));
+
+    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
+
     return http.build();
   }
 }

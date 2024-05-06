@@ -1,5 +1,8 @@
 package com.juny.core;
 
+import com.juny.core.ch07.Juny;
+import com.juny.core.ch07.JunyRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -14,6 +17,15 @@ public class CoreApplication {
 		SpringApplication.run(CoreApplication.class, args);
 	}
 
+	@Bean
+	CommandLineRunner createJuny(JunyRepository junyRepository){
+    return (args) -> {
+      Juny spring = new Juny(null, "Spring", "john");
+      Juny python = new Juny(null, "Python", "steve");
+      junyRepository.save(spring);
+      junyRepository.save(python);
+    };
+	}
 }
 
 //@SpringBootApplication

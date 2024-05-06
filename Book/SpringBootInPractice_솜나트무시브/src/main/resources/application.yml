@@ -58,7 +58,16 @@ spring:
             scope:
               - email
               - profile
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9999/realms/master
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 
+jwt:
+  auth:
+    converter:
+      resource-id: course-tracker
+      principal-attribute: principal_username
 #  mvc:
 #    hiddenmethod:
 #      filter:
