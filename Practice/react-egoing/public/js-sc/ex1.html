@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1><a href="index.html">Web</a></h1>
+    <input
+      type="button"
+      value="night"
+      onclick="
+    document.querySelector('body').style.backgroundColor = 'black';
+    document.querySelector('body').style.color = 'white';
+    "
+    />
+    <input
+      type="button"
+      value="day"
+      onclick="
+    document.querySelector('body').style.backgroundColor = 'white';
+    document.querySelector('body').style.color = 'black';
+    "
+    />
+    <input
+      type="button"
+      value="day"
+      onclick="
+      if (document.querySelector('body').dataset.mode === 'day') {
+    document.querySelector('body').style.backgroundColor = 'white';
+    document.querySelector('body').style.color = 'black';
+    document.querySelector('body').dataset.mode = 'night';
+    this.value = 'day';
+      } else {
+    document.querySelector('body').style.backgroundColor = 'black';
+    document.querySelector('body').style.color = 'white';
+    document.querySelector('body').dataset.mode = 'day';
+    this.value = 'night';
+      }
+    "
+    />
+
+    <p><input type="button" value="hi" onclick="alert('danger!')" /></p>
+    <input type="text" onchange="alert('changed')" />
+    <input type="text" onkeydown="alert('key down!')" />
+    <div>haha</div>
+    <span>haha2</span>
+    <span>haha3</span>
+    <div>haha4</div>
+    <!-- css: .은 class: 그룹핑, #은 id: 식별, span -->
+  </body>
+</html>
