@@ -1,5 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import { TopicProvider } from './context/TopicContext';
+import Header from './components/Header';
+import Nav from './components/Nav';
+import ContentArea from './components/ContentArea';
 
 const Ex1 = () => (
   <iframe
@@ -11,7 +14,14 @@ const Ex1 = () => (
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <TopicProvider>
+        <div>
+
+          <ContentArea />
+        </div>
+      </TopicProvider>
+    ),
   },
   {
     path: "/ex1",
