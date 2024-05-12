@@ -80,9 +80,11 @@ function Update({ _title, _body, onUpdate }) {
   const [title, setTitle] = useState(_title);
   const [body, setBody] = useState(_body);
 
+  const handleTitleChange = (event) => setTitle(event.target.value);
+  const handleBodyChange = (event) => setBody(event.target.value);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const id = event.target.id.value;
     const title = event.target.title.value;
     const body = event.target.body.value;
     onUpdate(title, body);
@@ -98,9 +100,7 @@ function Update({ _title, _body, onUpdate }) {
             name="title"
             placeholder="title"
             value={title}
-            onChange={(event) => {
-              setTitle(event.target.value);
-            }}
+            onChange={handleTitleChange}
           />
         </p>
         <p>
@@ -108,9 +108,7 @@ function Update({ _title, _body, onUpdate }) {
             name="body"
             placeholder="body"
             value={body}
-            onChange={(event) => {
-              setBody(event.target.value);
-            }}
+            onChange={handleBodyChange}
           ></textarea>
         </p>
         <p>
@@ -183,16 +181,33 @@ export default function App() {
       content = <Article title={topic.title} body={topic.body} />;
     }
     contextControl = (
-      <p>
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </button>
-      </p>
+      <>
+        <p>
+          <button
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </button>
+        </p>
+        <p>
+          <button
+            onClick={() => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; ++i) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+            }}
+          >
+            Delete
+          </button>
+        </p>
+      </>
     );
   } else if (mode === "CREATE") {
     content = <Create onCreate={handleCreate} />;
@@ -207,7 +222,7 @@ export default function App() {
       <Header title="Web" onWelcome={handleWelcomeClick} />
       <Nav topics={topics} onSelectTopic={handleSelectTopic} />
       {content}
-      {mode !== "CREATE" && (
+      {mode !== "CREATE" && mode !== "UPDATE" && (
         <p>
           <button onClick={handleCreateTopic}>Create</button>
         </p>
