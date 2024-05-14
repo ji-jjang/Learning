@@ -1,0 +1,21 @@
+
+.about-block .progress-block {
+    margin: 0 0 25px;
+}
+
+
+.about-block .progress-block h4 {
+    text-transform: uppercase;
+    margin: 0 0 5px;
+    font-size: 16px;
+}
+
+.about-block .progress-bar {
+    background-color: #f64b4b;
+    -webkit-transition: width 0.3s linear;
+    transition: width 0.3s linear;
+}
+
+.about-block .progress-block {
+    padding-top: 5px;
+} 

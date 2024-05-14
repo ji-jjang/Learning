@@ -1,0 +1,39 @@
+.teams-block div[class*="col"] {
+    margin: 0 0 50px;
+}
+
+.teams-block .row:last-child {
+    margin: 0 -15px;
+}
+
+.teams-block [class*="col-"]:hover .overlay {
+    top: 0;
+    opacity: 1;
+}
+
+.teams-block .image {
+    margin: 0 0 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.teams-block .image .overlay {
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all 0.3s linear;
+    background: rgba(246, 75, 75, 0.9);
+    opacity: 0;
+}
+
+.teams-block h3 {
+    margin: 0 0 5px;
+}
+
+.teams-block .designation {
+    display: block;
+    font-style: italic;
+    margin: 0 0 20px;
+}

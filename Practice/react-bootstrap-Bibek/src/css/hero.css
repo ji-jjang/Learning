@@ -1,0 +1,30 @@
+.hero-block {
+  margin: 60px 0 0;
+}
+  
+.hero-block .carousel-item:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.66);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hero-block .carousel-item img {
+  width: 100%;
+}
+
+.hero-block .carousel-caption {
+  left: 20%;
+  right: 20%;
+  transform: translateY(50%);
+  -webkit-transform: translateY(50%);
+  bottom: 50%;
+}
+
+.hero-block .carousel-caption {
+  left: 10%;
+  right: 10%;
+}

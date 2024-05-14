@@ -1,0 +1,40 @@
+.blog-block {
+    background: #f2f2f2;
+}
+
+.blog-block .row:last-child {
+    margin-bottom: 0;
+}
+
+.blog-block .holder {
+    background: #fff;
+    padding: 15px;
+    transition: box-shadow 0.3s linear;
+}
+
+.blog-block .holder:hover {
+    box-shadow: 0 0 30px 0 #d9d9d9;
+}
+
+.blog-block .card {
+    border: 0;
+}
+
+.blog-block .card-body {
+    padding: 0;
+}
+
+.blog-block img {
+    margin: 0 0 15px;
+}
+
+.blog-block time {
+    display: block;
+    margin: 0 0 10px;
+}
+
+.blog-block .card-title {
+    margin: 0 0 10px;
+    color: #f64b4b;
+    font-size: 22px;
+}

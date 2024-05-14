@@ -1,0 +1,160 @@
+@media only screen and (min-width: 1025px) {
+    a[href^="tel"],
+    a[href^="skype"],
+    a[href^="sms"] {
+      cursor: default;
+      pointer-events: none;
+    }
+  }
+  
+@media only screen and (max-width: 1023px) {
+    body {
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+    h1 {
+        font-size: 34px;
+        margin: 0 0 15px;
+    }
+
+    h2 {
+        font-size: 26px;
+        margin: 0 0 15px;
+    }
+
+    .btn.btn-primary {
+        padding: 9px 35px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="search"],
+    textarea {
+        padding: 5px 10px;
+        font-size: 15px;
+    }
+
+.works-block .portfolio-list > div .label {
+        height: 50px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .title-holder {
+        margin: 0 0 20px;
+    }
+
+    .go-top {
+        width: 40px;
+        height: 40px;
+    }
+
+    .go-top:before {
+        width: 11px;
+        height: 11px;
+    }
+
+    .pagetitle {
+        padding: 30px 0;
+        margin: 56px 0 0;
+    }
+
+    .block {
+        padding: 40px 0 10px;
+    }
+
+    .works-block {
+        padding: 40px 0 20px;
+    }
+
+    .works-block .portfolio-list > div {
+        padding: 0 10px 20px;
+    }
+
+    .teams-block {
+        text-align: center;
+    }
+
+    .teams-block .row {
+        margin-bottom: 0;
+    }
+
+    .teams-block [class*="col-"] {
+        padding-bottom: 20px;
+    }
+
+    .teams-block .image {
+        max-width: 350px;
+        margin: 0 auto 20px;
+    }
+
+    .teams-block .designation {
+        margin: 0;
+    }
+
+    .testimonials-block {
+        padding: 50px 0 30px;
+    }
+
+    .testimonials-block blockquote {
+        font-size: 15px;
+    }
+
+    .testimonials-block blockquote p {
+        margin: 0;
+    }
+
+    .pricing-block {
+        padding: 40px 0 20px;
+    }
+
+    .blog-block {
+        padding: 40px 0 20px;
+    }
+
+    .blog-block [class*="col-"] {
+        padding-bottom: 20px;
+    }
+
+    .blog-block .row {
+        margin-bottom: 0;
+    }
+
+    .contact-block {
+        padding: 40px 0 20px;
+    }
+
+    .contact-block [class*="col-"] {
+        padding-bottom: 10px;
+    }
+
+    .contact-block iframe {
+        height: 300px;
+    }
+
+    .contact-block .contact-info {
+        padding: 30px 0 0;
+        font-size: 15px;
+    }
+
+    .contact-block .contact-info li {
+        display: block;
+        width: 100%;
+        padding: 0 0 15px;
+    }
+
+    .contact-block .contact-info .fas {
+        font-size: 26px;
+        margin: 0;
+    }
+}

@@ -1,0 +1,64 @@
+.pricing-block .row {
+    align-items: center;
+    margin: 0;
+}
+  
+.pricing-block .row > div {
+    text-align: center;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricing-block .heading {
+    background: #e6e6e6;
+    padding: 15px 60px;
+}
+
+.pricing-block .content .list-group-item {
+    padding: 10px 20px;
+    border: 0;
+    background: #f7f7f7;
+}
+
+.pricing-block .content .list-group-item:nth-child(2n-1) {
+    background: #ededed;
+}
+
+.pricing-block .btn-holder {
+    padding: 30px 20px;
+}
+
+.pricing-block div[class*="col"]:nth-child(2) {
+    box-shadow: 0 0 40px 5px #e0e0e0;
+    position: relative;
+}
+
+.pricing-block div[class*="col"]:nth-child(2) .heading {
+    padding: 30px 20px;
+    background: #f64b4b;
+    color: #fff;
+}
+
+.pricing-block div[class*="col"]:nth-child(2):before {
+    content: "Popular";
+    text-transform: uppercase;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    background: #f76363;
+    color: #fff;
+    padding: 5px 10px;
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    font-size: 12px;
+}
+
+.pricing-block h3 {
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.pricing-block .price {
+    font-size: 35px;
+    line-height: 45px;
+}
