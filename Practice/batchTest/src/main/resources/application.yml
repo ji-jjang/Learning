@@ -1,3 +1,6 @@
 spring:
   application:
     name: ggorangjirang-batch
+
+  profiles:
+    include:

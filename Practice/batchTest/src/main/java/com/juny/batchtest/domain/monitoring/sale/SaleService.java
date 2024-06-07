@@ -1,6 +1,7 @@
 package com.juny.batchtest.domain.monitoring.sale;
 
 import com.querydsl.core.Tuple;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -62,6 +63,8 @@ public class SaleService {
   }
 
   private long calculateTimeInterval(ChronoUnit chronoUnit, LocalDateTime start, LocalDateTime end) {
+
+    LocalDate now = LocalDate.now();
 
     return chronoUnit.between(start, end);
   }

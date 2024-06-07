@@ -7,10 +7,6 @@ spring:
     url: jdbc:mysql://localhost:3306/juny
     username: root
     password: 1234
-  sql:
-    init:
-      mode: always
-      platform: mysql
   jpa:
     properties:
       hibernate:
@@ -18,3 +14,5 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
+  profiles:
+    include: test

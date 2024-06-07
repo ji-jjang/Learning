@@ -26,13 +26,9 @@ class BatchTestApplicationTests {
   public void CreateDummyData() {
 
     for(int i = 0; i < 500; i++) {
-            Sale sale = new Sale(LocalDateTime.of(2024,5,30,23, 0, 0).minusHours(i), 100000 + 10L *
-       i, 8 * 1);
+            Sale sale = new Sale(LocalDateTime.of(2024,5,31,23, 1, 0).minusHours(i), 100000 + 10L *
+       i,  i+ 0L);
 
-      Order order = new Order(null, LocalDateTime.of(2024, 5, 30, 23, 0).minusHours(i), OrderStatus.CANCEL, null,
-          null, 100L * i);
-
-      orderRepository.save(order);
       saleRepository.save(sale);
     }
   }
