@@ -5,22 +5,17 @@ import java.util.List;
 
 public class Q7 {
 
-  private static void dfs(
-      int depth,
-      List<String> ret,
-      String cur,
-      StringBuilder sb,
-      boolean[] isVisited
-      ) {
-    if (cur.length() == depth) {
-      ret.add(sb.toString());
+  private static void dfs(StringBuilder sb, String cur, List<String> ans, boolean[] isVisited) {
+    if (sb.length() == cur.length()) {
+      ans.add(sb.toString());
       return;
     }
     for (int i = 0; i < cur.length(); ++i) {
       if (isVisited[i]) continue;
-      sb.setCharAt(depth, cur.charAt(i));
+      sb.append(cur.charAt(i));
       isVisited[i] = true;
-      dfs(depth + 1, ret, cur, sb, isVisited);
+      dfs(sb, cur, ans, isVisited);
+      sb.deleteCharAt(sb.length() - 1);
       isVisited[i] = false;
     }
   }
@@ -28,13 +23,12 @@ public class Q7 {
   public static void main(String[] args) {
     String str = "abc";
 
-    List<String> ret = new ArrayList<>();
-    StringBuilder sb = new StringBuilder(str);
-    boolean[] checker = new boolean[str.length()];
+    List<String> ans = new ArrayList<>();
+    boolean[] isVisited = new boolean[str.length()];
 
-    dfs(0, ret, str, sb, checker);
+    dfs(new StringBuilder(), str, ans, isVisited);
 
-    for (var e : ret) {
+    for (var e : ans) {
       System.out.println(e);
     }
   }
