@@ -18,7 +18,6 @@ public class Q8 {
       if (i > 0 && cur[i] == cur[i - 1] && !isVisited[i - 1]) {
         continue;
       }
-
       sb.append(cur[i]);
       isVisited[i] = true;
       dfs(sb, cur, ans, isVisited);
