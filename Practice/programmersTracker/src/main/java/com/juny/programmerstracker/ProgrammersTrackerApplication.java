@@ -1,6 +1,5 @@
 package com.juny.programmerstracker;
 
-import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -21,21 +20,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProgrammersTrackerApplication {
 
-  private static String id;
-  private static String pw;
+  private static String programmersId;
+  private static String programmersPw;
+  private static String baekjoonId;
 
   public static void main(String[] args) {
 
-    id = System.getenv("PROGRAMMERS_ID");
-    pw = System.getenv("PROGRAMMERS_PW");
+    programmersId = System.getenv("PROGRAMMERS_ID");
+    programmersPw = System.getenv("PROGRAMMERS_PW");
+    baekjoonId = System.getenv("BAEKJOON_ID");
 
-    if (id == null || pw == null) {
-      throw new RuntimeException("Environment variables {id, pw} must be set.");
+    if (programmersId == null || programmersPw == null || baekjoonId == null) {
+      throw new RuntimeException(
+          "Environment variables {PROGRAMMERS_ID, PROGRAMMERS_PW, BAEKJOON_ID} must be set.");
     }
 
     System.setProperty(
         "webdriver.chrome.driver",
-        "/Users/jijunhyuk/Downloads/chromedriver-mac-arm64/chromedriver");
+        "/usr/local/bin/chromedriver");
 
     WebDriver driver = new ChromeDriver();
 
@@ -44,10 +46,10 @@ public class ProgrammersTrackerApplication {
       driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
       WebElement emailField = driver.findElement(By.name("email"));
-      emailField.sendKeys(id);
+      emailField.sendKeys(programmersId);
 
       WebElement passwordField = driver.findElement(By.xpath("//input[@type='password']"));
-      passwordField.sendKeys(pw);
+      passwordField.sendKeys(programmersPw);
 
       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -184,7 +186,12 @@ public class ProgrammersTrackerApplication {
   private static void updateReadme() throws IOException {
     String readmeContent =
         new String(
-            "# 백준\n[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj=jiny_us)](https://solved.ac/jiny_us/)\n# 프로그래머스\n");
+            "# 백준\n[![Solved.ac Profile](http://mazassumnida.wtf/api/v2/generate_badge?boj="
+                + baekjoonId
+                + ")](https://solved.ac/"
+                + baekjoonId
+                + "/)\n# 프로그래머스\n");
+
     String svgImageLink = "![프로그래머스 정보](programmers_info.svg)";
 
     readmeContent += svgImageLink;
