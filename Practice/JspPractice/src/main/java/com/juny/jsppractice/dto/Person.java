@@ -1,4 +1,4 @@
-package com.juny.jsppractice.chapter4.dto;
+package com.juny.jsppractice.dto;
 
 public class Person {
   private int id = 20230821;

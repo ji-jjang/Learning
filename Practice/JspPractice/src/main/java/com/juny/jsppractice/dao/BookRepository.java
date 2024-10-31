@@ -1,6 +1,6 @@
-package com.juny.jsppractice.chapter4.dao;
+package com.juny.jsppractice.dao;
 
-import com.juny.jsppractice.chapter4.dto.Book;
+import com.juny.jsppractice.dto.Book;
 import java.util.ArrayList;
 
 public class BookRepository {

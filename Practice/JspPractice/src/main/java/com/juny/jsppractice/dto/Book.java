@@ -1,4 +1,4 @@
-package com.juny.jsppractice.chapter4.dto;
+package com.juny.jsppractice.dto;
 
 import java.io.Serializable;
 
