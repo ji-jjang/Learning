@@ -6,6 +6,12 @@ import java.util.ArrayList;
 public class BookRepository {
 
   private ArrayList<Book> listOfBooks = new ArrayList<>();
+  private static BookRepository instance = new BookRepository();
+
+
+  public static BookRepository getInstance() {
+    return instance;
+  }
 
   public BookRepository() {
 
@@ -59,5 +65,10 @@ public class BookRepository {
       }
     }
     return bookById;
+  }
+
+  public void addBook(Book book) {
+
+    listOfBooks.add(book);
   }
 }
