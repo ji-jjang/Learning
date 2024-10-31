@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.juny.jsppractice.chapter4.dto.Book" %>
-<%@ page import="com.juny.jsppractice.chapter4.dao.BookRepository" %>
-<jsp:useBean id="bookDAO" class="com.juny.jsppractice.chapter4.dao.BookRepository" scope="session" />
+<%@ page import="com.juny.jsppractice.dto.Book" %>
+<%@ page import="com.juny.jsppractice.dao.BookRepository" %>
+<jsp:useBean id="bookDAO" class="com.juny.jsppractice.dao.BookRepository" scope="session" />
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -37,6 +37,9 @@
 	  %>
      	<div class="col-md-4">
        		<div class="h-100 p-2">
+
+				<img src="./resources/images/<%=book.getFilename() %>" style=
+				"width : 250px; height : 350px" />
 
 				<h5><b><%=book.getName()%></b></h5>
 				<p><%=book.getAuthor()%>

@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@ page import="com.juny.jsppractice.chapter4.dto.Book"%>
-<%@ page import="com.juny.jsppractice.chapter4.dao.BookRepository" %>
-<jsp:useBean id="bookDAO" class="com.juny.jsppractice.chapter4.dao.BookRepository" scope="session" />
+<%@ page import="com.juny.jsppractice.dto.Book"%>
+<%@ page import="com.juny.jsppractice.dao.BookRepository" %>
+<jsp:useBean id="bookDAO" class="com.juny.jsppractice.dao.BookRepository" scope="session" />
 
 <html>
 <head>
@@ -33,6 +33,9 @@
 		Book book = dao.getBookById(id);
 	%>
 	 <div class="row align-items-md-stretch">
+	 	<div class="col-md-5">
+	 		<img src="./resources/images/<%=book.getFilename() %>" style="width : 70%">
+		</div>
 			<div class="col-md-12">
 				<h3><b><%=book.getName()%></b></h3>
 				<p><%=book.getDescription()%>
