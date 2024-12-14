@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.juny.locktest.TimeSlotRepository">
+
+  <select id="findById" resultType="com.juny.locktest.TimeSlot">
+    SELECT id,
+           start_time  AS startTime,
+           end_time    AS endTime,
+           is_reserved AS isReserved,
+           price
+    FROM time_slots
+    WHERE id = #{id}
+  </select>
+
+  <select id="findAllByDate" resultType="com.juny.locktest.TimeSlot">
+    SELECT id,
+           start_time  AS startTime,
+           end_time    AS endTime,
+           is_reserved AS isReserved,
+           price
+    FROM time_slots
+    WHERE DATE (start_time) = #{date}
+  </select>
+
+  <select id="findAllByDateForShare" resultType="com.juny.locktest.TimeSlot">
+    SELECT id,
+           start_time  AS startTime,
+           end_time    AS endTime,
+           is_reserved AS isReserved,
+           price
+    FROM time_slots
+    WHERE DATE (start_time) = #{date}
+      FOR SHARE
+  </select>
+
+  <select id="findByIdsForUpdate" resultType="com.juny.locktest.TimeSlot">
+    SELECT
+    id,
+    start_time AS startTime,
+    end_time AS endTime,
+    is_reserved AS isReserved,
+    price
+    FROM time_slots
+    WHERE id IN
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+    FOR UPDATE
+  </select>
+
+  <select id="findByIdsForShare" resultType="com.juny.locktest.TimeSlot">
+    SELECT
+    id,
+    start_time AS startTime,
+    end_time AS endTime,
+    is_reserved AS isReserved,
+    price
+    FROM time_slots
+    WHERE id IN
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+    FOR SHARE
+  </select>
+
+  <update id="updateIsReservedTrue">
+    UPDATE time_slots
+    SET is_reserved = TRUE
+    WHERE id = #{id}
+  </update>
+
+  <update id="bulkUpdateIsReservedTrue">
+    UPDATE time_slots_versioning
+    SET is_reserved = TRUE, version = version + 1
+    WHERE id IN
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+    AND is_reserved = FALSE
+  </update>
+
+</mapper>

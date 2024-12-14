@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.juny.locktest.TimeSlotVersioningRepository">
+
+  <select id="findById" resultType="com.juny.locktest.TimeSlotVersioning">
+    SELECT id,
+           start_time  AS startTime,
+           end_time    AS endTime,
+           is_reserved AS isReserved,
+           price,
+           version
+    FROM time_slots_versioning
+    WHERE id = #{id}
+  </select>
+
+  <update id="updateIsReservedTrue">
+    UPDATE time_slots_versioning
+    SET is_reserved = TRUE,
+        version     = version + 1
+    WHERE id = #{id}
+      AND version = #{version}
+  </update>
+
+  <update id="bulkUpdateIsReservedTrue">
+    UPDATE time_slots_versioning
+    SET is_reserved = TRUE, version = version + 1
+    WHERE id IN
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+    AND is_reserved = FALSE
+  </update>
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.juny.locktest.ReservationRepository">
+
+  <insert id="save" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    INSERT INTO reservations (start_time, end_time, price)
+    VALUES (#{startTime}, #{endTime}, #{price})
+  </insert>
+
+</mapper>
